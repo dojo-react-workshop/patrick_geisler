@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-class App extends React.Component {
+
+class Counter extends React.Component {
     constructor(props){
       super(props);
 
@@ -29,7 +30,35 @@ class App extends React.Component {
     }
 }
 
+
+class Application extends React.Component {
+    constructor(props){
+      super(props);
+
+      this.state = {
+        counter: 1
+      }
+    }
+    newCounterNum = (arr) => {
+      this.setState({
+        counter: (this.state.counter + 1)
+      })
+    }
+
+    render = (arr) =>{
+        let counterArr = []
+        for (let i = 0; i< this.state.counter; i++)
+            counterArr.push(<Counter key={i}/>)
+        return (
+          <div>
+            <button onClick={this.newCounterNum}> New Counter </button>
+            {counterArr}
+          </div>
+        )
+    }
+}
+
 ReactDOM.render(
-  <App />,
+  <Application/>,
   document.getElementById('root')
 );
