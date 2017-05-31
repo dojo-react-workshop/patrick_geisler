@@ -44,7 +44,7 @@
                 const { colorData } = props;
                 const style = {
                     height: '100px',
-                    width: '275px',
+                    width: '120px',
                     fontSize: '20px',
                     color: 'black',
                     backgroundColor: 'white',
@@ -61,6 +61,12 @@
                     display: 'inline-block'
                 };
 
+                const imgStyle = {
+                    height: '40px',
+                    width: '40px',
+                    display: 'inline-block'
+                };
+
                  const text = `${colorData.title}`;
                  const count = `${colorData.count}`;
 
@@ -73,6 +79,7 @@
                       <div style={style}>
                         {text}
                       </div>
+                      <img src="plus.png" alt="" style={imgStyle}/>
                     </div>
                   </div>
                 )
