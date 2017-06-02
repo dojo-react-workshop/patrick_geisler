@@ -4,7 +4,6 @@ import calculateWinner from './calculateWinner'
 
 class Square extends React.Component{
 
-
   render(){
     const squareStyle ={
       height: '50px',
