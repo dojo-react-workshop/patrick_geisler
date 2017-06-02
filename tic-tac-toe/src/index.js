@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import calculateWinner from './calculateWinner'
 
 class Square extends React.Component{
 
@@ -18,7 +19,6 @@ class Square extends React.Component{
 }
 
 class GameBoard extends React.Component{
-
   state = {
     layout: [null, null, null,
               null, null, null,
@@ -53,8 +53,16 @@ class GameBoard extends React.Component{
 
 
  render = () => {
+   const winner = calculateWinner(this.state.layout);
+   let status = ''
+    if (winner) {
+      status = `${alert('WINNER')}`
+    } else {
+      status = `Next Up ${this.state.player}`
+    }
    return(
      <div>
+      <h1>{status}</h1>
       <div>
         {this.renderSquares(0)}
         {this.renderSquares(1)}
@@ -83,5 +91,6 @@ class App extends React.Component{
     );
   }
 }
+
 
 ReactDOM.render(<App/>, document.getElementById('root'));
