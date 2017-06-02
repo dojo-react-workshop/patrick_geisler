@@ -1,72 +1,76 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// let LAYOUT = [ null, null, null,
-//                null, null, null,
-//                null, null, null
-//              ]
-let LAYOUT = [[1, 2, 3],
-              [4, 5, 6],
-              [7, 8, 9]
-             ]
 class Square extends React.Component{
-    state = {
-      layout: null,
-      player: 'X'
-    }
-playaPlaya = () => {
-  this.setState({player: 'O'})
-  this.setState({layout: this.state.player})
-  console.log(this.state.player);
-  this.setState({player: 'O'})
-  console.log(this.state.player);
 
-}
 
   render(){
-    const divStyle = {
-      outline: 'thin black solid',
-      width: "50px",
-      height: "50px",
-      display: "inline-block",
-      padding: "20px"
-    }
-
+    const squareStyle ={
+      height: '50px',
+      width:'50px'
+    };
     return(
-      <button style={divStyle} onClick={this.playaPlaya}>
-        {this.state.layout}
+      <button style={squareStyle} onClick={() => this.props.onClick(this.props.value)}>
+        {this.props.layout[this.props.value]}
       </button>
-    )
-  }
-}
-
-class Row extends React.Component{
-
-render(){
-  let rowArr = []
-  this.props.layout.forEach(function(index){
-    rowArr.push(<Square layout={index} key={index}/>)
-  })
-  console.log(rowArr);
-
-  return(
-    <div>
-      {rowArr}
-    </div>
     );
   }
 }
 
-
 class GameBoard extends React.Component{
- render(){
-   let boardArr = []
-   this.props.layout.forEach(function(index){
-     boardArr.push(<Row layout={index} key={index}/>)
-   })
+
+  state = {
+    layout: [null, null, null,
+              null, null, null,
+              null, null, null
+            ],
+    player: 'X',
+  }
+
+  renderSquares(i){
+    return <Square
+    layout={this.state.layout}
+    value={i}
+    onClick={this.onClick}
+    />
+  }
+
+  onClick = (i) => {
+    const newSquares = this.state.layout.slice()
+    newSquares[i] = this.state.player
+    let nextPlayer = 'X'
+    if(this.state.player === 'X'){
+      nextPlayer = 'O'
+    } else {
+      nextPlayer = 'X'
+    }
+
+    this.setState({
+      layout: newSquares,
+      player: nextPlayer
+    })
+  }
+
+
+ render = () => {
    return(
      <div>
-      {boardArr}
+      <div>
+        {this.renderSquares(0)}
+        {this.renderSquares(1)}
+        {this.renderSquares(2)}
+      </div>
+      <div>
+        {this.renderSquares(3)}
+        {this.renderSquares(4)}
+        {this.renderSquares(5)}
+      </div>
+      <div>
+        {this.renderSquares(6)}
+        {this.renderSquares(7)}
+        {this.renderSquares(8)}
+      </div>
+
      </div>
    );
  }
@@ -75,9 +79,9 @@ class GameBoard extends React.Component{
 class App extends React.Component{
   render(){
     return(
-      <GameBoard layout = {this.props.layout}/>
+      <GameBoard/>
     );
   }
 }
 
-ReactDOM.render(<App layout={LAYOUT}/>, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
